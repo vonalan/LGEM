@@ -15,7 +15,7 @@ function [ O ] = fitness(S)
         mcentroids = centroids(s==1,:); 
 
         % flag = {0:not used, 1:train, 2:testa}; 
-        [x_train, x_testa] = cluster(mcentroids);
+        [x_train, x_testa] = cluster(mcentroids); 
         
         % train and validate classifier
         [param] = classifier_light(c_train, y_train, x_train, c_testa, y_testa, x_testa); 
