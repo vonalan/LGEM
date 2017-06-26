@@ -7,14 +7,14 @@ function [param] = classifier_light(c_train, y_train, x_train, c_testa, y_testa,
     param.split_ratio = 0.5; 
     param.Q = 0.1; 
     param.K = 128; 
-    param.H = 100; 
+    param.H = 1000; 
 
     [rbfnnC] = run_rbfnn(param, c_train, y_train, x_train, c_testa, y_testa, x_testa); 
     param.rbfnnC = rbfnnC; 
 end
 
 
-function [rbfnnC] = run_rbfnn(param, c_train, y_train, x_train, c_testa, y_testa, x_testa)
+function [rbfnnC] = run_rbfnn(param, c_train, y_train, x_train, c_testa, y_testa, x_testa)    
     [x_train, bias, scale] = auto_scale(x_train, 0, 1, 'train');
     [x_testa, ~, ~] = auto_scale(x_testa, bias, scale, 'valid');
 

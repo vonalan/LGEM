@@ -1,28 +1,31 @@
 function [ O ] = fitness(S)
     % calculating fitness for population; 
     
-    global centroids; 
+    global cline_train label_train cline_testa label_testa centroids;
     
+    m = size(S,1);
     resDim = 4;
     O = zeros(size(S,1), resDim); 
     
     % matlabpool local 4; 
-    for i  = 1 : size(S,1)
-        fprintf('calculating fitness for individual %d of %d... \n',i, size(S,1)); 
-        
+    % for i = 1 : m
+    parfor i  = 1 : m      
         % mask 
         s = S(i,:); 
         mcentroids = centroids(s==1,:); 
 
         % flag = {0:not used, 1:train, 2:testa}; 
-        [x_train, x_testa] = cluster(mcentroids); 
+        % for loop
+        % [x_train, x_testa] = cluster(mcentroids); 
+        % parfor loop 
+        [x_train, x_testa] = cluster_parfor(cline_train, stips_train, cline_testa, stips_testa, centroids)
         
         % train and validate classifier
-        [param] = classifier_light(c_train, y_train, x_train, c_testa, y_testa, x_testa); 
+        [param] = classifier_light(cline_train, label_train, x_train, cline_testa, label_testa, x_testa); 
         [err_train, stsm_train, acc_train, acc_testa] = reduce_results(param); 
         
-        fprintf('acc_train: %.4f, acc_testa: %.4f, err_train: %.4f, err_testa: %.4f\n', ...
-           acc_train, acc_testa, err_train, stsm_train); 
+        fprintf('Fitness value for %d of %d: {k:%d, acc_train: %.4f, acc_testa: %.4f, err_train: %.4f, stsm_train: %.4f}. \n', ...
+           i, m, size(mcentroids,1), acc_train, acc_testa, err_train, stsm_train); 
         
         O(i,:) = [err_train, stsm_train, acc_train, acc_testa]; 
         % break;

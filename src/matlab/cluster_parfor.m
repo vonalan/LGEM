@@ -1,5 +1,6 @@
-function [x_train, x_testa] = cluster(centroids)
-    global cline_train stips_train cline_testa stips_testa;
+function [x_train, x_testa] = cluster_parfor(cline_train, stips_train, cline_testa, stips_testa, centroids)
+    % global variables is not available in variable scope of subprocess;
+    % global cline_train stips_train cline_testa stips_testa;
     
     K = size(centroids,1);
     

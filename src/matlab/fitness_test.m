@@ -1,17 +1,23 @@
+% clear;
+% clc;
+
 global cline_train label_train stips_train cline_testa label_testa stips_testa centroids;
+global R C K; % round, cates, K;
+
 
 %*******************************
-round = 1; 
+R = 1; 
 K = 128;
-ns1 = 10000; 
-ns2 = 2000;
-[~] = load(round, K, ns1, ns2); 
+ns1 = 5613856; 
+ns2 = 2227730; 
+nsr = 100000;
+[C] = preload(R, K, ns1, ns2, nsr); 
 %*******************************
 
 %*******************************
 mop = {}; 
 mop.od = 2; 
-mop.pd = 128; 
+mop.pd = K; 
 popsize = 100; 
 
 mop.domain = [zeros(1,mop.pd);ones(1,mop.pd)];
