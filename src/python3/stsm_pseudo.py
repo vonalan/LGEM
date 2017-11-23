@@ -47,6 +47,6 @@ def calc_stsm_vector(model, trainX, cost_func=None, num_delta=1000, Q=0.1):
     for i in range(num_delta):
         deltaY = model.predict(trainX + deltaX[i,:])
         STSM += cost_func(deltaY, trainY)
-    STSM = STSM/num_delta
+    STSM = STSM / num_delta
     stsm_vector = STSM.mean(axis=0)
     return stsm_vector
