@@ -140,7 +140,7 @@ class RBFNN(object):
         self.func = self.run_rbfnn
         '''new'''
     
-    def run_rbfnn(trainX, trainY, W, U, V):
+    def run_rbfnn(self, trainX, trainY, W, U, V):
         D = np.power(sciDist.cdist(trainX, U), 2)
         Z = np.exp(D/np.transpose((-2 * np.power(V, 2)))) # how to implement element-wise operation?
         A = np.dot(Z, W)
